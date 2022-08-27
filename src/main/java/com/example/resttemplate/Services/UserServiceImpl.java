@@ -35,12 +35,8 @@ public class UserServiceImpl {
         headers.set(HttpHeaders.COOKIE,JSESSIONID);
 
          HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
-
          // Send request with POST method.
          return restTemplate.postForEntity(url, requestBody, String.class).getBody();
-
-
-
      }
 
 
