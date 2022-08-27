@@ -28,26 +28,23 @@ public class UserServiceImpl {
     }
     //------------------------------------------------------------------------------------------------------
 
-     public static void addUserByExchangeMethod(String JSESSIONID, User user) {
+     public static String addUserByExchangeMethod(String JSESSIONID, User user) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         headers.set(HttpHeaders.COOKIE,JSESSIONID);
 
-        HttpEntity<User> requestEntity  = new HttpEntity<>(user,headers);
+         HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
 
-        ResponseEntity<User> responseEntity = restTemplate.exchange(url,
-                HttpMethod.POST,
-                requestEntity,
-                User.class);
+         // Send request with POST method.
+         return restTemplate.postForEntity(url, requestBody, String.class).getBody();
 
-        HttpStatus statusCode = responseEntity.getStatusCode();
-        System.out.println("status code - " + statusCode);
-        User userDetails = responseEntity.getBody();
-        System.out.println("response body - " + userDetails);
-        HttpHeaders responseHeaders = responseEntity.getHeaders();
-        System.out.println("response Headers - " + responseHeaders);
-    }
+
+
+     }
 
 
 }
+
+
+
