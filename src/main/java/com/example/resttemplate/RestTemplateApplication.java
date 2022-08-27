@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class RestTemplateApplication {
 
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args)  {
         SpringApplication.run(RestTemplateApplication.class, args);
 
         User user = new User();
@@ -23,11 +23,20 @@ public class RestTemplateApplication {
         user.setLastName("Brown");
         user.setAge((byte) 29);
 
+        UserServiceImpl.getUsers();
 
-        System.out.println(UserServiceImpl.getUsers());
-        System.out.println(UserServiceImpl.JSESSIONID);
+        System.out.print(UserServiceImpl.addUserByExchangeMethod(user));
 
-        System.out.println(UserServiceImpl.addUserByExchangeMethod(UserServiceImpl.JSESSIONID, user));
+        User user_update = new User();
+        user_update.setId(3L);
+        user_update.setName("Thomas");
+        user_update.setLastName("Shelby");
+        user_update.setAge((byte) 29);
+
+        System.out.print(UserServiceImpl.PutWithExchangeExample(user_update));
+
+        System.out.print(UserServiceImpl.Delete());
+
 
     }
 }
